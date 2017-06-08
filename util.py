@@ -1,4 +1,4 @@
-import requests, json, os, datetime as dt
+import requests, json, os, datetime as dt, sys
 
 
 json_hdr = {'Content-Type':"application/json"}
@@ -73,6 +73,14 @@ def handle_status(url,data,r):
       return respdata
     return r.status_code
    
+  if r.status_code == 401:
+    print('AUTH ERROR')
+    print('Your REST request failed with a 401-unauthorized.')
+    print('Make sure you have updated the auth.ini file')
+    print('with a username and password that are valid')
+    print('for the JIRA instance at',url)
+    sys.exit(1)
+    
   print(r.status_code, r.reason,r.text)
   log_error(url,r.status_code,r.reason,r.text,json.dumps(data,indent=2))
   return False

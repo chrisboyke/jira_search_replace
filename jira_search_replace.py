@@ -7,7 +7,7 @@ update_count=0
 def main():
   config=configparser.ConfigParser()
   config.read('jira_search_replace.ini')
-  config.read('auth/auth.ini')
+  config.read('auth.ini')
   
   issues=get_issues(config)
   for issue in issues:
