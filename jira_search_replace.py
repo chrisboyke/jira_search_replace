@@ -1,6 +1,7 @@
 # jira_search_replace.py
 # Search and replace text in a set of jira issues via Jira rest API
 import re, util, configparser
+from getpass import getpass
 
 update_count=0
 
@@ -8,6 +9,8 @@ def main():
   config=configparser.ConfigParser()
   config.read('jira_search_replace.ini')
   config.read('auth.ini')
+  if not config['instance'].get('pw'):
+    config['instance']['pw'] = getpass("JIRA account password: ")
   
   issues=get_issues(config)
   for issue in issues:
